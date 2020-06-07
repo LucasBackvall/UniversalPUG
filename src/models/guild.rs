@@ -102,13 +102,13 @@ impl Guild
                 + "`.temp [pug name] [number of players]`";
         }
 
-        let mut message = "".to_string();
+        let mut message = "```".to_string();
         for row in rows
         {
             message.push_str("\n");
             message.push_str(&row);
         }
-        message.push_str("```");
+        message.push_str("\n```");
 
         message
     }
