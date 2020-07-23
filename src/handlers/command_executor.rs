@@ -26,7 +26,7 @@ impl CommandExecutor
 
 
         match command[0] {
-        	"admin" => self.admin_command(command.split_off(1)),
+        	"admin" | "adm" => self.admin_command(command.split_off(1)),
         	_ => self.pug_command(command)
         }
 

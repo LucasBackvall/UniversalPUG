@@ -95,7 +95,13 @@ impl CommandExecutor
                     }
                 }
 
-                self.check_full();
+                match self.check_full()
+                {
+                    Some(player_names) => {
+                        message += &("\nThe pug was filled with the following players:".to_owned() + &player_names);
+                    },
+                    None => {}
+                }
 
                 if send
                 {
@@ -116,12 +122,18 @@ impl CommandExecutor
 
                 if self.join(pug_name)
                 {
-                    self.check_full();
-                    self.guild.remove_temporary();
-                    self.list_pugs(
+                    let mut message = 
                         self.msg.author.name.to_string()
-                        + " joined " + pug_name
-                    );
+                        + " joined " + pug_name;
+                    match self.check_full()
+                    {
+                        Some(player_names) => {
+                            message += &("\nThe pug was filled with the following players:".to_owned() + &player_names);
+                        },
+                        None => {}
+                    }
+                    self.guild.remove_temporary();
+                    self.list_pugs(message);
                 }
             }
 			_ => ()
@@ -180,7 +192,7 @@ impl CommandExecutor
         };
     }
 
-    fn check_full(&mut self)
+    fn check_full(&mut self) -> Option<String>
     {
         for (identifier, pug) in self.guild.pugs.clone()
         {
@@ -202,11 +214,12 @@ impl CommandExecutor
                             + &player_names
                         );
                         self.guild.leave_all(&self.ctx, player.clone());
-                        return ();
                     });
-                break;
+                return Some(player_names);
             }
         }
+
+        None
     }
 
     fn pug_non_existing(&self)

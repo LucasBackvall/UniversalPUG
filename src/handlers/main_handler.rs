@@ -96,8 +96,6 @@ impl EventHandler for MainHandler
                 None => return
             };
 
-            println!("Kick offline. Presence: {:?}", presence);
-
             guild.remove_temporary();
             message += &("\n".to_owned() + &guild.list_pugs(&ctx));
 
