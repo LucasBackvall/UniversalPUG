@@ -47,10 +47,40 @@ impl CommandExecutor
                             None =>
                                 self.reply("Pug not found.".to_string())
                         }
-                    }
+                    },
         			_ => ()
         		}
 			},
+            "prefix" => {
+                if command.len() == 1
+                {
+                    return;
+                }
+
+                let prefix = command
+                    .split_off(1).first().unwrap()
+                    .chars().next().unwrap();
+
+                self.guild.prefix = prefix;
+                self.reply("Changed prefix to ".to_owned() + &prefix.to_string());
+            },
+            "kick_offline" => {
+                if command.len() == 1
+                {
+                    return;
+                }
+                match command[1] {
+                    "true" => {
+                        self.guild.kick_offline = true;
+                        self.reply("Turned ON automatic offline pug-kicking.".to_string());
+                    },
+                    "false" => {
+                        self.guild.kick_offline = false;
+                        self.reply("Turned OFF automatic offline pug-kicking.".to_string());
+                    },
+                    _ => ()
+                }
+            },
 			_ => ()
     	}
     }

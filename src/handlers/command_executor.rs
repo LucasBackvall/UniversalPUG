@@ -26,7 +26,6 @@ impl CommandExecutor
 
 
         match command[0] {
-        	"ping" => self.send_message("Pong!".to_string()),
         	"admin" => self.admin_command(command.split_off(1)),
         	_ => self.pug_command(command)
         }

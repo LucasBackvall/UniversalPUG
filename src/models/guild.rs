@@ -113,7 +113,8 @@ impl Guild
         message
     }
 
-    pub fn remove_temporary(&mut self) {
+    pub fn remove_temporary(&mut self)
+    {
         let pugs = self.pugs.clone();
         for (identifier, pug) in pugs
         {
