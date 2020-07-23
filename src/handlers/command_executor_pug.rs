@@ -2,7 +2,6 @@ use crate::models::pug::Pug;
 use crate::models::player::Player;
 use crate::handlers::command_executor::CommandExecutor;
 
-
 impl CommandExecutor
 {
 	pub fn pug_command(

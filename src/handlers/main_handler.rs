@@ -83,8 +83,7 @@ impl EventHandler for MainHandler
         let presence = event.presence;
 
         if guild.kick_offline
-            && presence.status != Online
-            && presence.status != Idle
+            && (presence.status == Offline || presence.status == Invisible)
         {
             let player = Player
             {
@@ -96,6 +95,8 @@ impl EventHandler for MainHandler
                 Some(message) => message,
                 None => return
             };
+
+            println!("Kick offline. Presence: {:?}", presence);
 
             guild.remove_temporary();
             message += &("\n".to_owned() + &guild.list_pugs(&ctx));
