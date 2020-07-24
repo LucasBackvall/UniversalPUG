@@ -14,11 +14,12 @@ impl CommandExecutor
         }
 		match command[0] {
             // List all the pugs and their current player counts
-			"list" | "ls" =>
+			"list" | "ls" | "lsa" =>
             {
                 let message = "Available pugs:".to_string();
                 self.list_pugs(message);
 			},
+
             // leave pug
             "leave" | "l" =>
             {
@@ -53,7 +54,7 @@ impl CommandExecutor
                         }
                     }
                 };
-            }
+            },
 
             "leaveall" | "lva" =>
             {
@@ -70,7 +71,7 @@ impl CommandExecutor
 
                 self.guild.remove_temporary();
                 self.list_pugs(message)
-            }
+            },
 
             // join pug
             "join" | "j" =>
@@ -108,7 +109,7 @@ impl CommandExecutor
                     self.guild.remove_temporary();
                     self.list_pugs(message);
                 }
-            }
+            },
 
             "temp" | "tmp" =>
             {
@@ -135,7 +136,8 @@ impl CommandExecutor
                     self.guild.remove_temporary();
                     self.list_pugs(message);
                 }
-            }
+            },
+            
 			_ => ()
     	}
     }
